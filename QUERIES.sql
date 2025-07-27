@@ -1,0 +1,87 @@
+create database chinook;
+use chinook;
+select*from Album;
+show tables;
+describe album;
+-- Structure of database
+SELECT table_name, column_name, data_type
+FROM information_schema.columns
+WHERE table_schema = 'chinook';
+
+-- BEGINNER LEVEL QUERIES
+-- List all customers from India.
+describe customer;
+select *from customer
+where Country='India';
+
+-- Show the first and last names of all employees who are sales reps.
+select*from employee;
+select LastName, FirstName from employee
+where Title LIKE '%Sales%';
+
+-- List all tracks that are longer than 5 minutes (300,000 milliseconds).
+select*from track;
+select * from track
+where milliseconds>300000;
+
+-- Find all customers who live in the city 'Paris'.
+select*from customer
+where city='Paris';
+
+-- List the top 10 most expensive tracks.
+select *from track
+order by Unitprice desc
+limit 10 ;
+
+
+-- INTERMEDIATE LEVEL QUERIES --
+-- Show the total number of invoices per customer.
+select*from invoice;
+select
+customer.customerid,
+customer.firstname,
+customer.lastname,
+sum(invoice.total) as sum_invoice
+from customer
+join invoice on customer.customerid=invoice.customerid
+group by customer.customerid,customer.firstname,customer.lastname;
+
+-- Find the total sales (sum of totals) per country.
+select billingcountry,sum(invoice.total) as total_sales from invoice
+group by billingcountry;
+
+-- List the top 5 customers who spent the most money.
+select
+customer.customerid,
+customer.firstname,
+customer.lastname,
+sum(invoice.total) as total_spent
+from customer
+join invoice on customer.customerid=invoice.customerid
+group by customer.customerid,customer.firstname,customer.lastname
+order by total_spent desc
+limit 5;
+
+-- Show all invoices along with customer name and invoice total.
+select
+customer.customerid,
+customer.firstname,
+customer.lastname,
+sum(invoice.total) as total_invoices
+from customer
+join invoice on customer.customerid=invoice.customerid
+group by customer.customerid,customer.firstname,customer.lastname;
+
+-- List all tracks with their album name and artist name.
+select track.name,album.title,artist.name from track
+join album on track.albumid=album.albumid
+join artist on album.artistid=artist.artistid;
+
+
+
+
+
+
+
+
+
