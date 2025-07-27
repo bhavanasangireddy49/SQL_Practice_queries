@@ -1,2 +1,2 @@
 # SQL_Practice_queries
-As part of my weekly challenge, I practice queries using chinook dataset in beginner to intermediate level .
+In this repository , I use chinook database and practiced queries that are beginner to intermediate level . SQL file and txt file are provided .
